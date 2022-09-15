@@ -10,15 +10,12 @@ namespace zixie_crypto_GetData
 {
     public class GetSymbols
     {
-        public static Symbol[] sb()
+        public static async Task<string>? Sb()
         {
             var client = new RestClient("https://api.diadata.org/v1/symbols");
             var request = new RestRequest("https://api.diadata.org/v1/symbols", Method.Get);
             request.AddHeader("Content-Type", "application/json");
-            var r = client.Execute(request).Content;
-            var Content = new StringContent(r.ToString(), Encoding.UTF8, "application/json");
-            JavaScriptSerializer js = new JavaScriptSerializer();
-            Symbol[] sb = js.Deserialize<Symbol[]>(r);
+            var sb = client.ExecuteAsync(request).Result.Content;
             return sb;
         }
     }
